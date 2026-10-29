@@ -2,7 +2,7 @@
 window.SITE = {
   name: "The Irish Observer",
   tagline: "Roleplay news, written by the community",
-  logo: "",   // optional: upload your OWN logo to the repo and put its file name here, e.g. "logo.png"
+  logo: "Logo.png",   // optional: upload your OWN logo to the repo and put its file name here, e.g. "logo.png"
   discord: "", // paste your Discord invite link to show the Join box and footer link (or set it later on the dashboard)
   footer: "Stories, reports and opinion from our newsroom.",
   legal: "This is a news outlet for roleplay communities. It is not affiliated with any real organisation or event.",
