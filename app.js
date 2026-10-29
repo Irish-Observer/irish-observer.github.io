@@ -33,8 +33,17 @@ function save(f,tok,fn,msg,d){return getJson(f,tok,d).then(function(x){return pu
 function shaOf(p,tok){return gh(p+"?ref="+O.branch,{},tok).then(function(r){return r.ok?r.json().then(function(f){return f.sha}):null})}
 function wfile(p,c,msg,tok){return shaOf(p,tok).then(function(s){return put(p,c,msg,s,tok)})}
 function dfile(p,msg,tok){return shaOf(p,tok).then(function(s){if(s)return gh(p,{method:"DELETE",body:JSON.stringify({message:msg,branch:O.branch,sha:s})},tok)})}
-function share(a){var im=a.image?(/^https?:/.test(a.image)?a.image:SITE+a.image):"",u=SITE+"#/a/"+a.id;
-  return '<!doctype html><html lang="en"><head><meta charset="utf-8"><title>'+esc(a.title)+'</title><meta property="og:type" content="article"><meta property="og:site_name" content="'+esc(S.name)+'"><meta property="og:title" content="'+esc(a.title)+'"><meta property="og:description" content="'+esc((a.tag?a.tag+": ":"")+(a.summary||""))+'">'+(im?'<meta property="og:image" content="'+esc(im)+'">':'')+'<meta name="twitter:card" content="summary_large_image"><meta http-equiv="refresh" content="0;url='+esc(u)+'"></head><body><a href="'+esc(u)+'">Read the story</a></body></html>'}
+function share(a){
+  var abs=function(u){return !u?"":(/^https?:/.test(u)?u:SITE+String(u).replace(/^\//,""))};
+  var im=abs(a.image||S.embedImage||S.logo),u=SITE+"#/a/"+a.id,col=S.themeColor||"#8f1117";
+  var ds=(a.category?a.category+(a.tag?" | "+a.tag:"")+": ":"")+(a.summary||String(a.body||"").replace(/[#*\[\]()!>_`]/g,"").replace(/\s+/g," ").trim().slice(0,200));
+  var M=function(k,v,at){return v?'<meta '+(at||"property")+'="'+k+'" content="'+esc(v)+'">':""};
+  return '<!doctype html><html lang="en"><head><meta charset="utf-8"><title>'+esc(a.title)+' - '+esc(S.name)+'</title>'
+   +M("og:type","article")+M("og:site_name",S.name)+M("og:title",a.title)+M("og:description",ds)+M("og:url",SITE+"p/"+a.id+"/")+M("og:image",im)+M("og:image:alt",a.title)
+   +M("article:published_time",a.date)+M("article:section",a.category)+M("article:author",a.author)
+   +M("twitter:card",im?"summary_large_image":"summary","name")+M("twitter:title",a.title,"name")+M("twitter:description",ds,"name")+M("twitter:image",im,"name")+M("theme-color",col,"name")
+   +'</head><body><a href="'+esc(u)+'">Read the story</a><script>location.replace('+JSON.stringify(u)+')</script></body></html>';
+}
 function saveShare(a,tok){return wfile("p/"+a.id+"/index.html",b64(share(a)),"Share page: "+a.title,tok)}
 function tok(){return ss(T)}
 function saveST(fn,msg){var t=tok();if(!t){go("#/dashboard");return Promise.reject(new Error("Your GitHub token is missing."))}var p;return save("settings.json",t,function(cur){p=fn(cur||{});return Object.assign({},cur,p)},msg,{}).then(function(){ST=Object.assign({},ST,p);TM=null})}
