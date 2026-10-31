@@ -102,3 +102,8 @@ body{top:0!important}.skiptranslate iframe,.goog-te-banner-frame{display:none!im
 .err{color:var(--er)}.ok{color:var(--ok)}
 .rl{max-height:12rem;overflow:auto;border:1px solid var(--l);border-radius:.5rem;padding:.4rem .8rem;background:var(--bg)}
 .rk{font-weight:400;margin:.35rem 0}.rk input{width:auto}
+/* logo fade and drafts */
+:root{--logo:none}
+.im{position:relative;overflow:hidden}
+.im.ov::after{content:"";position:absolute;inset:0;pointer-events:none;background:var(--logo) no-repeat right .7rem bottom .6rem/auto 22%,linear-gradient(to top,rgba(8,22,56,.88),rgba(31,95,191,.3) 45%,rgba(31,95,191,0) 100%)}
+.ban2{background:var(--p);border:1px dashed var(--a);padding:.5rem .8rem;border-radius:.4rem;color:var(--m)}
