@@ -1,10 +1,10 @@
 // ===== EDIT THIS FILE =====
 window.SITE = {
   name: "The Irish Observer",
-  tagline: "Roleplay news, written by the community",
+  tagline: "Independent journalism from Ireland to the world",
   logo: "Logo.png",   // optional: upload your OWN logo to the repo and put its file name here, e.g. "logo.png"
   discord: "", // paste your Discord invite link to show the Join box and footer link (or set it later on the dashboard)
-  footer: "Stories, reports and opinion from our newsroom.",
+  footer: "Politics | Society | Global affairs",
   legal: "This is a news outlet for roleplay communities. It is not affiliated with any real organisation or event.",
   siteUrl: "https://irish-observer.github.io/", // your site address, with the trailing slash
   repo: { owner: "Irish-Observer", name: "irish-observer.github.io", branch: "main" },
